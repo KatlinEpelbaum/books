@@ -4,17 +4,18 @@ require_once('./connection.php');
 
 $id = $_GET['id'];
 
-
 // Fetch the book details
 $stmt = $pdo->prepare('SELECT * FROM books WHERE id = :id');
 $stmt->execute(['id' => $id]);
 $book = $stmt->fetch();
 
-// Fetch the authors for the current book
-$stmt = $pdo->prepare('SELECT a.id, a.first_name, a.last_name FROM book_authors ba 
-                        LEFT JOIN authors a ON ba.author_id = a.id WHERE ba.book_id = :id');
-$stmt->execute(['id' => $id]);
+// Get book authors
+$bookAuthorsStmt = $pdo->prepare('SELECT a.id, a.first_name, a.last_name FROM book_authors ba LEFT JOIN authors a ON ba.author_id = a.id WHERE ba.book_id = :id');
+$bookAuthorsStmt->execute(['id' => $id]);
 
+// Get available authors
+$availableAuthorsStmt = $pdo->prepare('SELECT * FROM authors WHERE id NOT IN(SELECT author_id FROM book_authors WHERE book_id = :book_id)');
+$availableAuthorsStmt->execute(['book_id' => $id]); 
 
 ?>
 
@@ -45,7 +46,7 @@ $stmt->execute(['id' => $id]);
 
     <h3>Authors:</h3>
     <ul>
-        <?php while ($author = $stmt->fetch()) { ?>
+        <?php while ($author = $bookAuthorsStmt->fetch()) { ?>
             <li>
                 <form action="./remove_author.php?id=<?= $id; ?>" method="post" style="display:inline;">
                         <?= $author['first_name']; ?>
@@ -60,5 +61,22 @@ $stmt->execute(['id' => $id]);
             </li>
         <?php } ?>
     </ul>
+
+    <form action="./add_author.php" method="post">
+        <input type="hidden" name="book_id" value="<?= $id; ?>">
+
+        <select name="author_id">
+            <option value=""></option>
+            <?php while ($author = $availableAuthorsStmt->fetch()) { ?>
+                <option value="<?= $author['id']; ?>">
+                    <?= $author['first_name']; ?>
+                    <?= $author['last_name']; ?>
+                </option>
+            <?php } ?>   
+        </select>
+        <button type="submit" name="action" value="add_author">
+            Add Author
+        </button>
+    </form>
 </body>
 </html>
