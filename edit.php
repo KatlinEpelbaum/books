@@ -26,6 +26,9 @@ $stmt->execute(['id' => $id]);
     <title>Edit Book</title>
 </head>
 <body>
+    <nav>
+        <a href="./book.php?id=<?= $id; ?>">Back</a>
+    </nav>
     <h1>Edit Book</h1>
     
     <form action="./update_book.php?id=<?= $id; ?>" method="post">

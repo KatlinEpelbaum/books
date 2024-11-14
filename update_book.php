@@ -14,7 +14,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'Save') {
         'price' => $_POST['price']
     ]);
 
-    header("Location: ./book.php?id={$id}");
+    header("Location: ./edit.php?id={$id}");
     exit;
 
 } else {
