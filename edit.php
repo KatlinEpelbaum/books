@@ -74,6 +74,10 @@ $availableAuthorsStmt->execute(['book_id' => $id]);
                 </option>
             <?php } ?>   
         </select>
+        <h4>OR Add a New Author:</h4>
+        <input type="text" name="new_author_first_name" placeholder="First Name">
+        <input type="text" name="new_author_last_name" placeholder="Last Name">
+
         <button type="submit" name="action" value="add_author">
             Add Author
         </button>
