@@ -1,5 +1,5 @@
 <?php
-    // Add author to the book (existing)
+    // Add author to the book
 require_once('./connection.php');
  
 if (isset($_POST['book_id']) && isset($_POST['author_id']) && $_POST['action'] == 'add_author') {
