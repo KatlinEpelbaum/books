@@ -20,14 +20,14 @@ if ($searchQuery) {
 </head>
 <body>
     <form action="<?= $_SERVER['PHP_SELF']; ?>" method="GET">
-        <input type="text" name="search" placeholder="Search for books..." value="<?= htmlspecialchars($searchQuery); ?>">
+        <input type="text" name="search" placeholder="Search for books..." value="<?= $searchQuery; ?>">
         <button type="submit">Search</button>
     </form>
     <ul>
         <?php while ($book = $stmt->fetch()) { ?>
             <li>
                 <a href='./book.php?id=<?= $book['id']; ?>'>
-                    <?= htmlspecialchars($book['title']); ?>
+                    <?=$book['title']; ?>
                 </a>
             </li>
         <?php } ?>
