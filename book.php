@@ -91,10 +91,9 @@ $stmt->execute(['id' => $id]);
     </style>
 </head>
 <body>
-
     <div class="container">
         <div class="image-container">
-            <img src="<?= $book['cover_path']; ?>" alt="Cover image of <?= $book['title']; ?>">
+            <img src="<?= $book['cover_path']; ?>" alt="">
         </div>
         <div class="info-container">
             <h1><?= $book['title']; ?></h1>
