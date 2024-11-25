@@ -91,6 +91,9 @@ $stmt->execute(['id' => $id]);
     </style>
 </head>
 <body>
+    <nav>
+        <a href="./index.php">Back</a>
+    </nav>
     <div class="container">
         <div class="image-container">
             <img src="<?= $book['cover_path']; ?>" alt="">
